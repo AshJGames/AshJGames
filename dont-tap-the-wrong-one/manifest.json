@@ -1,0 +1,18 @@
+{
+  "name": "DON'T TAP THE WRONG ONE",
+  "short_name": "Don't Tap",
+  "description": "Viral, addictive neon reflex game. Follow the commands, avoid the tricks, and don't tap the wrong one!",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07080d",
+  "theme_color": "#07080d",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

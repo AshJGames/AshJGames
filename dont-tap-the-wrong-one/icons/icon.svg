@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#141828"/>
+      <stop offset="100%" stop-color="#07080d"/>
+    </radialGradient>
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowYellow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="100" fill="url(#bgGrad)"/>
+  <rect x="16" y="16" width="480" height="480" rx="84" fill="none" stroke="#00e5ff" stroke-width="4" stroke-opacity="0.3"/>
+
+  <!-- 4 Iconic Buttons -->
+  <!-- Red Button (Top-Left) -->
+  <rect x="76" y="76" width="160" height="160" rx="36" fill="#181b2a" stroke="#ff1744" stroke-width="6" filter="url(#glowRed)"/>
+  <circle cx="156" cy="156" r="28" fill="#ff1744"/>
+
+  <!-- Blue Button (Top-Right) -->
+  <rect x="276" y="76" width="160" height="160" rx="36" fill="#181b2a" stroke="#00e5ff" stroke-width="6" filter="url(#glowCyan)"/>
+  <circle cx="356" cy="156" r="28" fill="#00e5ff"/>
+
+  <!-- Green Button (Bottom-Left) -->
+  <rect x="76" y="276" width="160" height="160" rx="36" fill="#181b2a" stroke="#00e676" stroke-width="6" filter="url(#glowGreen)"/>
+  <circle cx="156" cy="356" r="28" fill="#00e676"/>
+
+  <!-- Yellow Button (Bottom-Right) -->
+  <rect x="276" y="276" width="160" height="160" rx="36" fill="#181b2a" stroke="#ffea00" stroke-width="6" filter="url(#glowYellow)"/>
+  <circle cx="356" cy="356" r="28" fill="#ffea00"/>
+
+  <!-- Center Warning / Crosshair Symbol -->
+  <circle cx="256" cy="256" r="54" fill="#07080d" stroke="#ffffff" stroke-width="6"/>
+  <path d="M 232 256 L 280 256 M 256 232 L 256 280" stroke="#00e5ff" stroke-width="6" stroke-linecap="round"/>
+</svg>

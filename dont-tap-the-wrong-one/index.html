@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DON'T TAP THE WRONG ONE | Viral Mobile Mini-Game</title>
+  
+  <!-- SEO & Social Open Graph -->
+  <meta name="description" content="A fast-paced, addictive, brain-melting reflex game. Follow the commands, avoid the tricks, and don't tap the wrong color!">
+  <meta name="theme-color" content="#07080d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Don't Tap">
+
+  <!-- Open Graph / Viral Sharing -->
+  <meta property="og:title" content="DON'T TAP THE WRONG ONE">
+  <meta property="og:description" content="Can your brain keep up? Play the ultimate viral reflex challenge now!">
+  <meta property="og:type" content="website">
+
+  <!-- Favicons & Manifest -->
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <div id="app">
+    <!-- ================= SCREEN 1: WELCOME SCREEN ================= -->
+    <section id="welcomeScreen" class="screen active">
+      <div class="welcome-container">
+        <!-- Header -->
+        <header class="welcome-header">
+          <p class="logo-tagline">Viral Reflex Challenge</p>
+          <h1 class="game-logo">DON'T TAP<br>THE WRONG ONE</h1>
+          <div class="daily-streak-badge">
+            <span>🔥 Daily Streak:</span>
+            <span id="dailyStreakCount">1 Day</span>
+          </div>
+        </header>
+
+        <!-- Friend Challenge Banner (dynamically displayed if challenge URL opened) -->
+        <div id="challengeNotice" class="challenge-notice-banner hidden">
+          <span id="challengeNoticeText">⚔️ Friend Challenge Incoming!</span>
+        </div>
+
+        <!-- Mode Selection Selector -->
+        <div class="modes-selector" role="radiogroup" aria-label="Game Mode">
+          <!-- Classic Mode -->
+          <button type="button" class="mode-card selected" data-mode="classic" role="radio" aria-checked="true">
+            <div class="mode-info">
+              <h3>⚡ Classic Mode</h3>
+              <p>30-second rapid sprint. Quick taps add bonus time!</p>
+            </div>
+            <span class="mode-best-val">Best: 0</span>
+          </button>
+
+          <!-- Chaos Mode -->
+          <button type="button" class="mode-card" data-mode="chaos" role="radio" aria-checked="false">
+            <div class="mode-info">
+              <h3>🌀 Chaos Mode</h3>
+              <p>Shifting buttons, fake prompts & screen decoys.</p>
+            </div>
+            <span class="mode-best-val">Best: 0</span>
+          </button>
+
+          <!-- Impossible Mode -->
+          <button type="button" class="mode-card" data-mode="impossible" role="radio" aria-checked="false">
+            <div class="mode-info">
+              <h3>☠️ Impossible Mode</h3>
+              <p>Ultra-speed, Stroop effect & reverse psychology.</p>
+            </div>
+            <span class="mode-best-val">Best: 0</span>
+          </button>
+
+          <!-- Daily Challenge -->
+          <button type="button" class="mode-card" data-mode="daily" role="radio" aria-checked="false">
+            <div class="mode-info">
+              <h3>📅 Daily Challenge</h3>
+              <p>Same seed for all players worldwide today!</p>
+            </div>
+            <span class="mode-best-val">Best: 0</span>
+          </button>
+        </div>
+
+        <!-- Play Primary CTA -->
+        <button id="btnPlay" class="btn-play-primary" type="button">
+          <span>START GAME</span>
+          <span>▶</span>
+        </button>
+
+        <!-- Quick Icon Bar -->
+        <nav class="quick-nav-bar" aria-label="Quick Actions">
+          <button id="btnHowToPlay" class="btn-icon-nav" type="button">
+            <span class="nav-icon">📖</span>
+            <span>Rules</span>
+          </button>
+          <button id="btnStats" class="btn-icon-nav" type="button">
+            <span class="nav-icon">📊</span>
+            <span>Stats</span>
+          </button>
+          <button id="btnAchievements" class="btn-icon-nav" type="button">
+            <span class="nav-icon">🏆</span>
+            <span>Badges</span>
+            <span id="achievementsCountBadge" class="count-badge">0/12</span>
+          </button>
+          <button id="btnThemes" class="btn-icon-nav" type="button">
+            <span class="nav-icon">🎨</span>
+            <span>Themes</span>
+          </button>
+          <button id="btnSound" class="btn-icon-nav" type="button" aria-label="Audio Toggle">
+            <span class="nav-icon">🔊</span>
+            <span>Audio</span>
+          </button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: GAMEPLAY SCREEN ================= -->
+    <section id="gameplayScreen" class="screen hidden">
+      <div class="gameplay-container">
+        <!-- Top HUD -->
+        <div class="hud-header">
+          <div class="hud-item">
+            <span class="hud-label">Score</span>
+            <span id="hudScore" class="hud-value">0</span>
+          </div>
+
+          <div class="hud-item">
+            <span class="hud-label">Streak</span>
+            <span id="hudStreak" class="hud-value">0</span>
+          </div>
+
+          <div class="hud-item">
+            <span id="hudMultiplier" class="hud-multiplier-pill">x1.0</span>
+          </div>
+
+          <div class="hud-item">
+            <span id="hudModeBadge" class="hud-label">CLASSIC</span>
+          </div>
+
+          <button id="btnPause" class="btn-hud-control" type="button" aria-label="Exit Game">✕</button>
+        </div>
+
+        <!-- Timer Bar -->
+        <div class="timer-container">
+          <span id="timerText" class="timer-text-pill">30.0s</span>
+          <div id="timerProgress" class="timer-progress"></div>
+        </div>
+
+        <!-- Floating Points Popup Anchor -->
+        <div id="floatingScoreContainer" class="floating-score-container"></div>
+
+        <!-- Combo Milestone Pop Banner -->
+        <div id="comboMilestoneBanner" class="combo-milestone-banner hidden"></div>
+
+        <!-- Instruction Prompt Card -->
+        <div id="instructionCard" class="instruction-card">
+          <div id="instructionText" class="instruction-text">Tap RED</div>
+          <div id="stroopWordContainer"></div>
+          <div id="instructionSubtext" class="instruction-subtext"></div>
+        </div>
+
+        <!-- Dynamic Buttons Grid (2x2 or 2x3) -->
+        <div id="buttonGrid" class="button-grid buttons-4">
+          <!-- Dynamically populated by UI engine -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 3: GAME OVER SCREEN ================= -->
+    <section id="gameOverScreen" class="screen hidden">
+      <div class="game-over-container">
+        <!-- Header -->
+        <div class="go-header">
+          <h2 class="go-title">ROUND OVER</h2>
+          <div id="goNewBestBanner" class="go-new-best hidden">👑 NEW PERSONAL BEST!</div>
+        </div>
+
+        <!-- Score counter -->
+        <div class="go-score-display">
+          <div id="goScore" class="go-score-val">0</div>
+          <p class="go-score-label">Points Scored</p>
+        </div>
+
+        <!-- Roast / Praise Card -->
+        <div class="go-roast-card">
+          <h3 id="goRoastTitle" class="go-roast-title">BRAIN DISCONNECTED</h3>
+          <p id="goRoastText" class="go-roast-text">"Your finger betrayed you!"</p>
+          <p id="goExplanation" class="go-explanation-text"></p>
+        </div>
+
+        <!-- Stats Chips -->
+        <div class="go-stats-row">
+          <div class="go-stat-chip">
+            <div class="chip-label">Max Streak</div>
+            <div id="goStreak" class="chip-val">🔥 0</div>
+          </div>
+          <div class="go-stat-chip">
+            <div class="chip-label">Accuracy</div>
+            <div id="goAccuracy" class="chip-val">🎯 100%</div>
+          </div>
+          <div class="go-stat-chip">
+            <div class="chip-label">Best Reflex</div>
+            <div id="goReflex" class="chip-val">⚡ 320ms</div>
+          </div>
+        </div>
+
+        <!-- Action Stack -->
+        <div class="go-actions-stack">
+          <button id="btnPlayAgain" class="btn-go-action btn-go-primary" type="button">
+            <span>PLAY AGAIN</span>
+            <span>🔄</span>
+          </button>
+
+          <button id="btnShareScore" class="btn-go-action btn-go-share" type="button">
+            <span>SHARE SCORE</span>
+            <span>🚀</span>
+          </button>
+
+          <button id="btnChallengeFriend" class="btn-go-action btn-go-secondary" type="button">
+            <span>GENERATE SCORE CARD</span>
+            <span>📸</span>
+          </button>
+
+          <button id="btnMainMenu" class="btn-go-action btn-go-secondary" type="button">
+            <span>MAIN MENU</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- How to Play Modal -->
+    <div id="howToPlayModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="rulesTitle">📖 How to Play</h3>
+          <button class="btn-modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="guide-rule-card">
+            <h4 style="color: var(--neon-cyan)">1. The Golden Rule</h4>
+            <p>Read the instruction carefully before tapping. A single wrong tap or running out of time immediately ends your game!</p>
+          </div>
+          <div class="guide-rule-card">
+            <h4 style="color: var(--neon-red)">2. Negative Commands</h4>
+            <p>"DON'T tap Blue" or "Tap anything except Green" means <em>any other color button</em> is valid. Avoid the forbidden color!</p>
+          </div>
+          <div class="guide-rule-card">
+            <h4 style="color: var(--neon-yellow)">3. Stroop Effect & Tricks</h4>
+            <p>If instructed to tap the <strong>INK COLOR</strong>, look at what color the font glows in, not what word is written!</p>
+          </div>
+          <div class="guide-rule-card">
+            <h4 style="color: var(--neon-green)">4. Combos & Speed Bonus</h4>
+            <p>Fast taps (under 350ms) grant extra speed points. Streaks give combo multipliers up to <strong>x4.0</strong>, plus bonus points every 5 streak!</p>
+          </div>
+          <div class="guide-rule-card">
+            <h4 style="color: var(--neon-purple)">5. Game Modes</h4>
+            <p><strong>Classic:</strong> 30s endurance run.<br><strong>Chaos:</strong> Shuffling buttons & fake glitch instructions.<br><strong>Impossible:</strong> Brutal sub-second reverse brain-benders.<br><strong>Daily:</strong> Compete on the same seed as the world!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Dashboard Modal -->
+    <div id="statsModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="statsTitle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="statsTitle">📊 Player Statistics</h3>
+          <button class="btn-modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div id="statTotalGames" class="stat-val">0</div>
+              <div class="stat-lbl">Games Played</div>
+            </div>
+            <div class="stat-box">
+              <div id="statBestStreak" class="stat-val">0</div>
+              <div class="stat-lbl">Best Streak</div>
+            </div>
+            <div class="stat-box">
+              <div id="statOverallAccuracy" class="stat-val">100%</div>
+              <div class="stat-lbl">Overall Accuracy</div>
+            </div>
+            <div class="stat-box">
+              <div id="statFastestReaction" class="stat-val">0ms</div>
+              <div class="stat-lbl">Fastest Reflex</div>
+            </div>
+            <div class="stat-box">
+              <div id="statTotalScore" class="stat-val">0</div>
+              <div class="stat-lbl">Total Score Earned</div>
+            </div>
+            <div class="stat-box">
+              <div id="statConsecutiveDays" class="stat-val">1 Day</div>
+              <div class="stat-lbl">Login Streak</div>
+            </div>
+          </div>
+
+          <h4 style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase;">Mode High Scores</h4>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div id="statBestClassic" class="stat-val">0</div>
+              <div class="stat-lbl">Classic Mode</div>
+            </div>
+            <div class="stat-box">
+              <div id="statBestChaos" class="stat-val">0</div>
+              <div class="stat-lbl">Chaos Mode</div>
+            </div>
+            <div class="stat-box">
+              <div id="statBestImpossible" class="stat-val">0</div>
+              <div class="stat-lbl">Impossible Mode</div>
+            </div>
+            <div class="stat-box">
+              <div id="statBestDaily" class="stat-val">0</div>
+              <div class="stat-lbl">Daily Challenge</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements Modal -->
+    <div id="achievementsModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="achTitle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="achTitle">🏆 Achievements & Badges</h3>
+          <button class="btn-modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="achievementsListContainer" class="achievements-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Themes Modal -->
+    <div id="themesModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="themesTitle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="themesTitle">🎨 Unlockable Themes</h3>
+          <button class="btn-modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="themesListContainer" class="themes-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Score Card Preview Modal -->
+    <div id="shareCardModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="shareCardTitle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="shareCardTitle">📸 Shareable Score Card</h3>
+          <button class="btn-modal-close" type="button" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="scoreCardImageContainer" class="card-preview-container">
+            <!-- Generated Canvas PNG injected here -->
+          </div>
+          <div class="card-actions-row">
+            <button id="btnDownloadCard" class="btn-go-action btn-go-primary" type="button">
+              <span>Save Image</span>
+              <span>💾</span>
+            </button>
+            <button id="btnCopyChallengeLink" class="btn-go-action btn-go-secondary" type="button">
+              <span>Copy Link</span>
+              <span>📋</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Scripts (loaded in modular sequence) -->
+  <script src="js/audio.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/prompts.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/cardGenerator.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+/**
+ * DON'T TAP THE WRONG ONE - Main Styles & Theme Variables
+ */
+
+:root {
+  /* Default Cyberpunk Neon Theme */
+  --bg-primary: #07080d;
+  --bg-surface: #10121c;
+  --bg-surface-elevated: #181b2a;
+  --text-main: #f0f3fc;
+  --text-muted: #8b92a8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-glow: rgba(0, 229, 255, 0.4);
+
+  /* Neon Accent Colors */
+  --neon-cyan: #00e5ff;
+  --neon-red: #ff1744;
+  --neon-green: #00e676;
+  --neon-yellow: #ffea00;
+  --neon-purple: #d500f9;
+  --neon-orange: #ff6d00;
+
+  /* Button Colors */
+  --btn-red: #ff1744;
+  --btn-blue: #00e5ff;
+  --btn-green: #00e676;
+  --btn-yellow: #ffea00;
+
+  /* Fonts */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+
+  --shadow-neon: 0 0 20px rgba(0, 229, 255, 0.35);
+  --shadow-red: 0 0 20px rgba(255, 23, 68, 0.4);
+}
+
+/* 80s Synthwave Theme */
+[data-theme='arcade80s'] {
+  --bg-primary: #0d0618;
+  --bg-surface: #1a0e30;
+  --bg-surface-elevated: #28144a;
+  --text-main: #ffe6ff;
+  --text-muted: #af9ac2;
+  --neon-cyan: #00ffff;
+  --neon-red: #ff007f;
+  --neon-green: #05ffa1;
+  --neon-yellow: #ffe600;
+  --border-glow: rgba(255, 0, 127, 0.5);
+  --shadow-neon: 0 0 20px rgba(255, 0, 127, 0.45);
+}
+
+/* Matrix Terminal Theme */
+[data-theme='matrix'] {
+  --bg-primary: #020803;
+  --bg-surface: #041407;
+  --bg-surface-elevated: #08240d;
+  --text-main: #b8ffc4;
+  --text-muted: #599c64;
+  --neon-cyan: #00ff66;
+  --neon-red: #ff3344;
+  --neon-green: #00ff44;
+  --neon-yellow: #ccff00;
+  --border-glow: rgba(0, 255, 68, 0.5);
+  --shadow-neon: 0 0 20px rgba(0, 255, 68, 0.4);
+}
+
+/* Candy Pastel Theme */
+[data-theme='pastel'] {
+  --bg-primary: #121016;
+  --bg-surface: #1e1a26;
+  --bg-surface-elevated: #2c2538;
+  --text-main: #fbf6ff;
+  --text-muted: #b0a6be;
+  --neon-cyan: #70d6ff;
+  --neon-red: #ff70a6;
+  --neon-green: #80ed99;
+  --neon-yellow: #ffd670;
+  --border-glow: rgba(112, 214, 255, 0.4);
+  --shadow-neon: 0 0 20px rgba(112, 214, 255, 0.3);
+}
+
+/* Solar Flare Theme */
+[data-theme='solar'] {
+  --bg-primary: #0f0705;
+  --bg-surface: #1c0f0a;
+  --bg-surface-elevated: #2d180f;
+  --text-main: #fff2ed;
+  --text-muted: #b89a8e;
+  --neon-cyan: #ffab00;
+  --neon-red: #ff3d00;
+  --neon-green: #00e676;
+  --neon-yellow: #ffd600;
+  --border-glow: rgba(255, 61, 0, 0.5);
+  --shadow-neon: 0 0 20px rgba(255, 61, 0, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* App Container - Mobile first max 480px, responsive on tablet/desktop */
+#app {
+  width: 100%;
+  max-width: 460px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+/* Ambient cyber glow background shapes */
+.ambient-glow-1,
+.ambient-glow-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+
+.ambient-glow-1 {
+  width: 280px;
+  height: 280px;
+  top: -60px;
+  right: -60px;
+  background: var(--neon-cyan);
+}
+
+.ambient-glow-2 {
+  width: 260px;
+  height: 260px;
+  bottom: -40px;
+  left: -40px;
+  background: var(--neon-red);
+}
+
+/* Screen base styles */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  padding: 1.25rem;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.screen.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.screen.hidden {
+  display: none !important;
+}
+
+/* Utility classes */
+.hidden {
+  display: none !important;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Responsive adjustment for desktop */
+@media (min-width: 600px) {
+  #app {
+    min-height: 860px;
+    height: 94vh;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+  }
+}

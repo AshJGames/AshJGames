@@ -1,0 +1,171 @@
+/**
+ * DON'T TAP THE WRONG ONE - Keyframe Animations & Micro-Interactions
+ */
+
+@keyframes pulse-soft {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes button-decoy-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 25px var(--btn-color);
+    filter: brightness(1.1);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.9), 0 0 50px var(--btn-color);
+    filter: brightness(1.7);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes float-up-fade {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-24px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-48px) scale(1);
+  }
+}
+
+@keyframes banner-pop {
+  0% {
+    transform: translate(-50%, -20px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, 0) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes timer-warning {
+  0% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.8) drop-shadow(0 0 10px #ff1744);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.timer-warning-pulse {
+  animation: timer-warning 0.3s infinite alternate !important;
+}
+
+/* Dramatic Screen Shake on error */
+.screen-shake {
+  animation: shake-hard 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake-hard {
+  10%, 90% {
+    transform: translate3d(-3px, 0, 0) rotate(-0.5deg);
+  }
+  20%, 80% {
+    transform: translate3d(5px, 0, 0) rotate(0.8deg);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-6px, 0, 0) rotate(-1deg);
+  }
+  40%, 60% {
+    transform: translate3d(6px, 0, 0) rotate(1deg);
+  }
+}
+
+/* Chaos Mode visual glitch trigger */
+.chaos-glitch-active {
+  animation: chaos-invert 0.32s steps(2, start) infinite;
+}
+
+@keyframes chaos-invert {
+  0% {
+    filter: invert(0.85) hue-rotate(90deg);
+  }
+  50% {
+    filter: invert(0) hue-rotate(0deg);
+  }
+  100% {
+    filter: invert(0.9) hue-rotate(180deg);
+  }
+}
+
+/* Toast animations */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.95);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Glitched prompt card animation */
+.card-glitch {
+  animation: glitch-jitter 0.4s ease-out;
+}
+
+@keyframes glitch-jitter {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3px, 2px);
+  }
+  40% {
+    transform: translate(3px, -2px);
+  }
+  60% {
+    transform: translate(-2px, 1px);
+  }
+  80% {
+    transform: translate(2px, -1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
