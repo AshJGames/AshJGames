@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AJGames - Free Online Mini Games</title>
+
+    <meta name="description"
+          content="Play fun and challenging free online mini games at AJGames. Test your brain, improve your skills and have fun!">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #101322;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 35px 15px;
+            background: #191f38;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin: 0 0 10px;
+            color: #ffcf55;
+        }
+
+        header p {
+            color: #c5c9dc;
+        }
+
+        main {
+            max-width: 1050px;
+            margin: auto;
+            padding: 35px 20px;
+        }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+        }
+
+        .game-card {
+            background: #202743;
+            border: 1px solid #343d60;
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .game-card .emoji {
+            font-size: 48px;
+        }
+
+        .game-card h2 {
+            color: #ffcf55;
+        }
+
+        .game-card p {
+            color: #c5c9dc;
+            line-height: 1.5;
+        }
+
+        .play-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #ffcf55;
+            color: #171717;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .play-button:hover {
+            background: #ffe39a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #aeb4cc;
+            background: #191f38;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AJGAMES</h1>
+    <p>Play. Challenge Yourself. Beat Your Best!</p>
+</header>
+
+<main>
+    <h2>Choose Your Game</h2>
+    <p>Three fun challenges. How good are your skills?</p>
+
+    <section class="games">
+
+        <div class="game-card">
+            <div class="emoji">🧠</div>
+            <h2>Brain Lag</h2>
+            <p>Challenge your brain and test how quickly you can think.</p>
+            <a class="play-button" href="brain-lag/index.html">
+                Play Now
+            </a>
+        </div>
+
+        <div class="game-card">
+            <div class="emoji">🧱</div>
+            <h2>One More Block</h2>
+            <p>Keep playing, improve your score and beat your best.</p>
+            <a class="play-button" href="one-more-block/index.html">
+                Play Now
+            </a>
+        </div>
+
+        <div class="game-card">
+            <div class="emoji">🎯</div>
+            <h2>Don't Tap the Wrong One</h2>
+            <p>Stay focused and make the right move. Can you do it?</p>
+            <a class="play-button" href="dont-tap-the-wrong-one/index.html">
+                Play Now
+            </a>
+        </div>
+
+    </section>
+</main>
+
+<footer>
+    <p>© 2026 AJGames. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
