@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AJGames - Free Online Mini Games</title>
+    <title>AshJGames - Free Online Mini Games</title>
 
     <meta name="description"
-          content="Play fun and challenging free online mini games at AJGames. Test your brain, improve your skills and have fun!">
+          content="Play fun and challenging free online mini games at AshJGames. Test your brain, improve your skills and have fun!">
 
     <style>
         * {
@@ -24,7 +24,7 @@
 
         header {
             text-align: center;
-            padding: 35px 15px;
+            padding: 30px 15px;
             background: #191f38;
         }
 
@@ -36,6 +36,29 @@
 
         header p {
             color: #c5c9dc;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 16px 10px;
+            background: #202743;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #ffcf55;
+            color: #171717;
         }
 
         main {
@@ -86,11 +109,45 @@
             background: #ffe39a;
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 25px 15px;
             color: #aeb4cc;
             background: #191f38;
+            margin-top: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .footer-links a {
+            color: #ffcf55;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            nav {
+                gap: 5px;
+            }
+
+            nav a {
+                padding: 9px 10px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -98,9 +155,18 @@
 <body>
 
 <header>
-    <h1>AJGAMES</h1>
+    <h1>AshJGames</h1>
     <p>Play. Challenge Yourself. Beat Your Best!</p>
 </header>
+
+<!-- Main Navigation -->
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms.html">Terms & Conditions</a>
+</nav>
 
 <main>
     <h2>Choose Your Game</h2>
@@ -139,7 +205,18 @@
 </main>
 
 <footer>
-    <p>© 2026 AJGames. All rights reserved.</p>
+
+    <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
+
+    <p>© 2026 AshJGames. All rights reserved.</p>
+
+    <p>Play. Challenge Yourself. Beat Your Best!</p>
+
 </footer>
 
 </body>

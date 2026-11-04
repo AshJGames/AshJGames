@@ -1,31 +1,189 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - AJGames</title>
+    <meta name="theme-color" content="#101322">
+    <title>About Us - AshJGames</title>
+    <meta name="description" content="About AshJGames - Learn more about AshJGames.">
+    <style>
+
+:root {
+    --bg: #101322;
+    --panel: #202743;
+    --panel-deep: #191f38;
+    --gold: #ffcf55;
+    --gold-hover: #ffe39a;
+    --text: #f5f6fb;
+    --muted: #c5c9dc;
+    --border: #343d60;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+.site-header {
+    text-align: center;
+    padding: 30px 15px 24px;
+    background: var(--panel-deep);
+}
+.site-header h1 {
+    margin: 0 0 5px;
+    color: var(--gold);
+    font-size: clamp(30px, 5vw, 42px);
+    letter-spacing: .3px;
+}
+.site-header p { margin: 0; color: var(--muted); }
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 13px 12px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+}
+nav a, .home-button {
+    display: inline-block;
+    color: var(--text);
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 7px;
+    font-weight: bold;
+    transition: background .2s ease, color .2s ease;
+}
+nav a:hover, nav a[aria-current="page"] {
+    background: var(--gold);
+    color: #171717;
+}
+main {
+    width: min(900px, calc(100% - 32px));
+    margin: 38px auto;
+}
+.content-card {
+    padding: clamp(22px, 4vw, 38px);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 14px 35px rgba(0,0,0,.18);
+}
+.eyebrow {
+    margin: 0 0 7px;
+    color: var(--gold);
+    font-size:  .82rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+h2.page-title {
+    margin: 0 0 18px;
+    color: var(--gold);
+    font-size: clamp(27px, 4vw, 35px);
+    line-height: 1.2;
+}
+h2.section-title {
+    margin: 28px 0 8px;
+    color: var(--gold);
+    font-size: 21px;
+}
+p { color: var(--muted); margin: 0 0 16px; }
+ul { color: var(--muted); padding-left: 24px; }
+li { margin: 7px 0; }
+.info-panel {
+    margin: 22px 0;
+    padding: 17px 19px;
+    background: rgba(16,19,34,.62);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+}
+.info-panel p:last-child { margin-bottom: 0; }
+a.email-link { color: var(--gold); font-weight: bold; }
+a.email-link:hover { color: var(--gold-hover); }
+.home-button {
+    margin-top: 12px;
+    background: var(--gold);
+    color: #171717;
+}
+.home-button:hover { background: var(--gold-hover); }
+.site-footer {
+    margin-top: 50px;
+    padding: 24px 15px;
+    text-align: center;
+    background: var(--panel-deep);
+    color: #aeb4cc;
+}
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-bottom: 12px;
+}
+.footer-links a { color: var(--gold); text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+.site-footer p { margin: 0; font-size: 14px; }
+@media (max-width: 520px) {
+    nav { gap: 4px; }
+    nav a { padding: 8px 9px; font-size: 13px; }
+    main { margin: 22px auto; }
+    .content-card { border-radius: 12px; }
+}
+
+    </style>
 </head>
-<body style="font-family:Arial; max-width:850px; margin:40px auto; padding:20px; line-height:1.7;">
-    <h1>About AJGames</h1>
+<body>
+<header class="site-header">
+    <h1>AshJGames</h1>
+    <p>Play. Challenge Yourself. Beat Your Best!</p>
+</header>
+<nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="contact.html" >Contact</a>
+    <a href="privacy-policy.html" >Privacy Policy</a>
+    <a href="terms.html" >Terms &amp; Conditions</a>
+</nav>
+<main>
+    <article class="content-card">
+        <p class="eyebrow">Get to know us</p>
+        <h2 class="page-title">About AshJGames</h2>
+        <p>Welcome to AshJGames!</p>
 
-    <p>Welcome to AJGames!</p>
+        <p>AshJGames is an online gaming platform created for people who enjoy
+        simple, fun and challenging mini-games.</p>
 
-    <p>AJGames is an online gaming platform created for people who enjoy
-    simple, fun and challenging mini-games.</p>
+        <p>Our goal is to provide visitors with an enjoyable gaming experience
+        through games that are easy to access and fun to play.</p>
 
-    <p>Our goal is to provide visitors with an enjoyable gaming experience
-    through games that are easy to access and fun to play.</p>
+        <h2 class="section-title">Our Games</h2>
+        <ul>
+            <li>Brain Lag</li>
+            <li>One More Block</li>
+            <li>Don't Tap the Wrong One</li>
+        </ul>
 
-    <h2>Our Games</h2>
-    <ul>
-        <li>Brain Lag</li>
-        <li>One More Block</li>
-        <li>Don't Tap the Wrong One</li>
-    </ul>
+        <div class="info-panel">
+            <p>Thank you for visiting AshJGames. Have fun playing!</p>
+        </div>
 
-    <p>Thank you for visiting AJGames. Have fun playing!</p>
-
-    <a href="index.html">Back to Home</a>
+        <a class="home-button" href="index.html">&larr; Back to Home</a>
+    </article>
+</main>
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+    <p>&copy; 2026 AshJGames. All rights reserved.</p>
+</footer>
 </body>
 </html>
