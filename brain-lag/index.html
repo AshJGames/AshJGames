@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0f18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="BRAIN LAG - The viral, addictive reflex, trick question, and brain puzzle mini-game. Outsmart the tricks and beat your friends!">
+
+  <title>BRAIN LAG 🧠⚡ The Viral Brain Puzzle Game</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/brain-icon.svg">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-cyber-neon">
+
+  <!-- Background Canvas for Particles, Confetti & Synapse Sparks -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- App Wrapper -->
+  <div id="app-root">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="nav-brand">
+        <span class="nav-logo-icon">🧠</span>
+        <span class="nav-logo-text">BRAIN LAG</span>
+      </div>
+      <div class="nav-actions">
+        <button id="btn-sound-toggle" class="nav-btn" aria-label="Toggle Sound" title="Sound Settings">
+          🔊 <span class="nav-btn-text">SOUND ON</span>
+        </button>
+        <button id="btn-open-howtoplay" class="nav-btn" aria-label="How to play" title="How to play">
+          ❓ <span class="nav-btn-text">HOW TO PLAY</span>
+        </button>
+        <button id="btn-open-achievements" class="nav-btn" aria-label="Achievements" title="Achievements">
+          🏆 <span class="nav-btn-text">BADGES</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- SCREEN 1: HOME SCREEN                      -->
+    <!-- ========================================== -->
+    <section id="screen-home" class="game-screen screen-active">
+      <div class="home-hero">
+        <div class="mascot-wrapper">
+          <div id="brain-mascot-container" class="mascot-display"></div>
+        </div>
+
+        <h1 class="game-title">
+          <span class="title-brain">BRAIN</span>
+          <span class="title-lag">LAG</span>
+        </h1>
+        <p class="game-tagline">"I know the answer... wait, NO!" 🧠⚡</p>
+
+        <!-- Global Player Snapshot -->
+        <div class="player-stats-bar">
+          <div class="stat-pill">
+            <span class="stat-val" id="stat-total-correct">0</span>
+            <span class="stat-lbl">CORRECT</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-val" id="stat-overall-accuracy">100%</span>
+            <span class="stat-lbl">ACCURACY</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-val" id="stat-best-streak">0x</span>
+            <span class="stat-lbl">BEST STREAK</span>
+          </div>
+        </div>
+
+        <!-- Featured Daily Challenge Banner -->
+        <div class="daily-hero-card" id="btn-open-daily">
+          <div class="daily-left">
+            <span class="daily-badge">DAILY BRAINWAVE</span>
+            <h3>Today's Daily Challenge</h3>
+            <p>10 seeded questions. Compete against everyone globally!</p>
+          </div>
+          <div class="daily-right">
+            <button class="game-btn daily-play-btn">PLAY DAILY 📅</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="modes-section">
+        <h2 class="section-title">SELECT GAME MODE</h2>
+        <div class="mode-cards-grid">
+
+          <!-- Mode 1: Don't Overthink -->
+          <div class="mode-card" data-start-mode="overthink">
+            <div class="mode-card-header">
+              <span class="mode-icon">🤔</span>
+              <span class="mode-high-pill" data-high-score-for="overthink">PB: 0</span>
+            </div>
+            <h3>Don't Overthink</h3>
+            <p>30 seconds. Deceptive trick questions. One mistake ends the run!</p>
+            <div class="mode-tags">
+              <span class="tag">TRICK QUESTIONS</span>
+              <span class="tag">30 SECONDS</span>
+            </div>
+            <button class="game-btn primary mode-play-btn">START SURVIVAL →</button>
+          </div>
+
+          <!-- Mode 2: Color Chaos -->
+          <div class="mode-card" data-start-mode="colorchaos">
+            <div class="mode-card-header">
+              <span class="mode-icon">🎨</span>
+              <span class="mode-high-pill" data-high-score-for="colorchaos">PB: 0</span>
+            </div>
+            <h3>Color Chaos</h3>
+            <p>The Stroop effect on steroids. Shifting rules & accelerating speed!</p>
+            <div class="mode-tags">
+              <span class="tag">STROOP TEST</span>
+              <span class="tag">SPEED RAMP</span>
+            </div>
+            <button class="game-btn primary mode-play-btn">START CHAOS →</button>
+          </div>
+
+          <!-- Mode 3: Memory Meltdown -->
+          <div class="mode-card" data-start-mode="memory">
+            <div class="mode-card-header">
+              <span class="mode-icon">💾</span>
+              <span class="mode-high-pill" data-high-score-for="memory">PB: 0</span>
+            </div>
+            <h3>Memory Meltdown</h3>
+            <p>Flashing sequences of neon cyber pads. Length grows every round!</p>
+            <div class="mode-tags">
+              <span class="tag">SEQUENCE</span>
+              <span class="tag">REVERSE RECALL</span>
+            </div>
+            <button class="game-btn primary mode-play-btn">START MEMORY →</button>
+          </div>
+
+          <!-- Mode 4: Reflex Rush -->
+          <div class="mode-card" data-start-mode="reflex">
+            <div class="mode-card-header">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-high-pill" data-high-score-for="reflex">PB: 0</span>
+            </div>
+            <h3>Reflex Rush</h3>
+            <p>Split-second reaction tests. Dodge fake decoys & clock millisecond taps!</p>
+            <div class="mode-tags">
+              <span class="tag">REACTION</span>
+              <span class="tag">MS TIMING</span>
+            </div>
+            <button class="game-btn primary mode-play-btn">START REFLEX →</button>
+          </div>
+
+          <!-- Mode 5: Brain Destroyer -->
+          <div class="mode-card mode-destroyer-card" data-start-mode="destroyer">
+            <div class="mode-card-header">
+              <span class="mode-icon">💀</span>
+              <span class="mode-high-pill" data-high-score-for="destroyer">PB: 0</span>
+            </div>
+            <h3>Brain Destroyer</h3>
+            <p>The ultimate cognitive nightmare. All modes mixed with inverted rules!</p>
+            <div class="mode-tags">
+              <span class="tag tag-danger">EXTREME</span>
+              <span class="tag">INVERTED RULES</span>
+            </div>
+            <button class="game-btn danger mode-play-btn">ENTER GAUNTLET 🔥</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SCREEN 2: GAMEPLAY SCREEN                  -->
+    <!-- ========================================== -->
+    <section id="screen-game" class="game-screen hidden">
+      <!-- HUD Header -->
+      <div class="game-hud">
+        <div class="hud-top-row">
+          <button id="btn-pause-game" class="hud-btn-back" title="Return to Menu">✕</button>
+          <div id="hud-mode-title" class="hud-mode-pill">DON'T OVERTHINK</div>
+          <div id="hud-streak-badge" class="hud-streak-pill">⚡ 0x</div>
+        </div>
+
+        <div class="hud-score-row">
+          <div class="hud-score-group">
+            <span class="hud-score-label">SCORE</span>
+            <span id="hud-score" class="hud-score-number">0</span>
+          </div>
+          <div id="hud-challenge-target" class="hud-target-pill hidden">
+            TARGET: <span>850</span>
+          </div>
+          <div class="hud-streak-group">
+            <span class="hud-streak-label">STREAK</span>
+            <span id="hud-streak" class="hud-streak-number">0x</span>
+          </div>
+        </div>
+
+        <!-- Timer Bar -->
+        <div class="timer-bar-track">
+          <div id="hud-timer-bar" class="timer-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Main Question Arena Card -->
+      <div class="game-arena-card">
+        <div id="question-category" class="question-category-tag">TRICK QUESTION</div>
+        <h2 id="question-prompt" class="question-prompt-text">Loading question...</h2>
+
+        <!-- Interactive Question Content (Text, Stroop Box, Memory Rune, or Reflex Target) -->
+        <div id="question-content-box" class="question-content-area"></div>
+
+        <!-- Options Container (Buttons or Grid) -->
+        <div id="options-container" class="options-grid"></div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SCREEN 3: GAME OVER SCREEN                 -->
+    <!-- ========================================== -->
+    <section id="screen-gameover" class="game-screen hidden">
+      <div class="gameover-card">
+        <div id="go-new-record-badge" class="new-record-banner hidden">
+          🎉 NEW PERSONAL BEST! 🎉
+        </div>
+
+        <div id="go-challenger-result" class="challenger-result-banner hidden"></div>
+
+        <span class="go-header-tag">ROUND COMPLETED</span>
+        <div class="go-score-box">
+          <span class="go-score-label">FINAL SCORE</span>
+          <h1 id="go-final-score" class="go-score-value">0</h1>
+        </div>
+
+        <div class="go-diagnosis-box">
+          <h3 id="go-diag-title">DIAGNOSIS: NEURONS ON VACATION</h3>
+          <p id="go-diag-quote">"Your brain needs a critical software update!"</p>
+        </div>
+
+        <!-- Detailed Stat Pillars -->
+        <div class="go-stats-grid">
+          <div class="go-stat-item">
+            <span class="go-stat-val" id="go-accuracy">0%</span>
+            <span class="go-stat-lbl">ACCURACY</span>
+          </div>
+          <div class="go-stat-item">
+            <span class="go-stat-val" id="go-streak">0x</span>
+            <span class="go-stat-lbl">MAX STREAK</span>
+          </div>
+          <div class="go-stat-item">
+            <span class="go-stat-val" id="go-correct">0</span>
+            <span class="go-stat-lbl">CORRECT</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="go-actions">
+          <button id="go-btn-replay" class="game-btn primary pulse-btn">PLAY AGAIN ↺</button>
+          <button id="go-btn-share" class="game-btn share-btn">CHALLENGE FRIENDS 📢</button>
+          <button id="go-btn-download-card" class="game-btn secondary">SAVE SCORE CARD 🖼️</button>
+          <button id="go-btn-home" class="game-btn text-btn">RETURN TO HOME 🏠</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODAL: HOW TO PLAY                         -->
+    <!-- ========================================== -->
+    <div id="modal-howtoplay" class="modal-overlay hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <button class="modal-close-btn" title="Close">✕</button>
+        <h2>HOW TO PLAY BRAIN LAG 🧠</h2>
+        <div class="modal-body-scroll">
+          <div class="help-item">
+            <h4>1. Your First Instinct is Usually Wrong!</h4>
+            <p>Every question, visual clue, and prompt is designed to trigger your automatic brain reflexes. Read carefully before clicking!</p>
+          </div>
+          <div class="help-item">
+            <h4>2. Combos Multiply Your Points</h4>
+            <p>Stack consecutive correct answers to trigger Combo Multipliers (up to 3x!). 5 in a row awards blazing bonus points.</p>
+          </div>
+          <div class="help-item">
+            <h4>3. Five Playable Modes</h4>
+            <p><strong>Don't Overthink:</strong> 30s trick question speedrun.<br>
+            <strong>Color Chaos:</strong> Stroop color word confusion.<br>
+            <strong>Memory Meltdown:</strong> Cyber-pad sequence recall.<br>
+            <strong>Reflex Rush:</strong> Millisecond visual reaction tests.<br>
+            <strong>Brain Destroyer:</strong> Gauntlet of inverted rules & tricks.</p>
+          </div>
+          <div class="help-item">
+            <h4>4. Challenge Friends</h4>
+            <p>Generate shareable score cards and send direct challenge links. Friends will see your ghost score in their run!</p>
+          </div>
+          <div class="help-item">
+            <h4>5. Keyboard Shortcuts</h4>
+            <p>Use keys <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, and <kbd>4</kbd> on desktop keyboards to answer rapidly.</p>
+          </div>
+        </div>
+        <button class="game-btn primary modal-confirm-btn modal-close-btn">GOT IT, LET'S PLAY!</button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: ACHIEVEMENTS & BADGES               -->
+    <!-- ========================================== -->
+    <div id="modal-achievements" class="modal-overlay hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card modal-wide">
+        <button class="modal-close-btn" title="Close">✕</button>
+        <h2>ACHIEVEMENTS & BADGES 🏆</h2>
+        <p class="modal-subtitle">Unlock badges and unique cyber themes by crushing brain challenges!</p>
+        <div class="achievements-scroll-area">
+          <div id="achievements-grid" class="achievements-grid"></div>
+        </div>
+        <button class="game-btn primary modal-confirm-btn modal-close-btn">CLOSE</button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: DAILY CHALLENGE                     -->
+    <!-- ========================================== -->
+    <div id="modal-daily" class="modal-overlay hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <button class="modal-close-btn" title="Close">✕</button>
+        <span class="modal-badge-tag">DAILY BRAIN CHALLENGE</span>
+        <h2 id="daily-streak-count">1 DAY STREAK 🔥</h2>
+        <p id="daily-status-msg">10 fixed puzzles generated for today. Everyone in the world gets the exact same questions!</p>
+        
+        <div class="daily-reward-box">
+          <div class="daily-reward-item">
+            <span class="reward-icon">📅</span>
+            <span>Daily Streak Login Bonus</span>
+          </div>
+          <div class="daily-reward-item">
+            <span class="reward-icon">🏆</span>
+            <span>Global Daily Comparison</span>
+          </div>
+        </div>
+
+        <button id="btn-start-daily-challenge" class="game-btn primary pulse-btn">START TODAY'S CHALLENGE 🧠</button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: FRIEND CHALLENGE INCOMING           -->
+    <!-- ========================================== -->
+    <div id="modal-challenge-banner" class="modal-overlay hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <span class="modal-badge-tag" style="background: #ff0054; color: #fff;">CHALLENGE INCOMING! 🔥</span>
+        <h2><span id="challenge-sender-name">A FRIEND</span> HAS CHALLENGED YOU!</h2>
+        <p>They scored <strong id="challenge-target-score" style="color:#00f5d4; font-size:1.4rem;">850</strong> in <span id="challenge-mode-name">DON'T OVERTHINK</span>!</p>
+        <p>Think your brain is faster, sharper, and less prone to lagging? Prove it now!</p>
+        
+        <button id="btn-accept-challenge" class="game-btn primary pulse-btn">ACCEPT THE CHALLENGE! ⚔️</button>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL: LAG EXPLANATION OVERLAY             -->
+    <!-- ========================================== -->
+    <div id="modal-explanation" class="modal-overlay hidden">
+      <div class="modal-backdrop"></div>
+      <div class="lag-explanation-card">
+        <div class="lag-card-header">
+          <span class="lag-warning-icon">⚠️</span>
+          <h3 id="explanation-reason">BRAIN LAGGED!</h3>
+        </div>
+        <p id="explanation-text" class="lag-explanation-text">Explanation goes here.</p>
+        <button id="btn-explanation-continue" class="game-btn primary">CONTINUE →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/questions.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/share.js"></script>
+  <script src="js/modes/overthink.js"></script>
+  <script src="js/modes/colorchaos.js"></script>
+  <script src="js/modes/memory.js"></script>
+  <script src="js/modes/reflex.js"></script>
+  <script src="js/modes/destroyer.js"></script>
+  <script src="js/modes/daily.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
